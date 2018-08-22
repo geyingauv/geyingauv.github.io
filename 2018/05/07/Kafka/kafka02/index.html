@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="virle's blog, virle, geying, geyingauv"><title>Kafka 机制 - Virle's blog</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/geyingauv"><span>Github</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="/post-bg.jpg"><div class="post-title"><h1 class="title">Kafka 机制</h1><ul class="meta"><li><i class="icon icon-author"></i>Virle</li><li><i class="icon icon-clock"></i>2 Minutes</li><li><i class="icon icon-calendar"></i>May 7, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><h1 id="kafka机制"><a href="#kafka机制" class="headerlink" title="kafka机制"></a>kafka机制</h1><h2 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h2><ul>
+<li><p>Broker</p>
+<p>Kafka集群包含一个或多个服务器，这种服务器被称为broker</p>
+</li>
+<li><p>Topic</p>
+<p>发布到集群的消息都有一个类别(物理上不同Topic的消息分开存储，逻辑上一个Topic的消息虽然保存于一个或多个broker上但用户只需指定消息的Topic即可生产或消费数据而不必关心数据存于何处)</p>
+</li>
+<li><p>Partition</p>
+<p>分区每个Topic包含一个或多个Partition</p>
+</li>
+<li><p>Producer</p>
+<p>发布消息到kafka的broker</p>
+</li>
+<li><p>Consumer</p>
+<p>从kafka的broker中获取消息</p>
+</li>
+<li><p>Consumer Group</p>
+<p>每个Consumer属于一个特定的Consumer Group（可为每个Consumer指定group name，若不指定group name则属于默认的group）。</p>
+</li>
+</ul>
+<h2 id="Kafka拓扑结构"><a href="#Kafka拓扑结构" class="headerlink" title="Kafka拓扑结构"></a>Kafka拓扑结构</h2><p>一个典型的Kafka集群中包含若干Producer（可以是web前端产生的Page View，或者是服务器日志，系统CPU、Memory等），若干broker（Kafka支持水平扩展，一般broker数量越多，集群吞吐率越高），若干Consumer Group，以及一个<a href="http://zookeeper.apache.org/" target="_blank" rel="noopener">Zookeeper</a>集群。</p>
+<p>Kafka通过Zookeeper管理集群配置，选举leader，以及在Consumer Group发生变化时进行rebalance。Producer使用push模式将消息发布到broker，Consumer使用pull模式从broker订阅并消费消息。</p>
+<h2 id="Topic-amp-Partition"><a href="#Topic-amp-Partition" class="headerlink" title="Topic &amp; Partition"></a>Topic &amp; Partition</h2><p>Topic在逻辑上可以被认为是一个队列,每条消费都必须指定它的Topic,为了使得Kafka的吞吐率可以线性提高，物理上把Topic分成一个或多个Partition，每个Partition在物理上对应一个文件夹，该文件夹下存储这个Partition的所有消息和索引文件。</p>
+<p>对于传统的message queue而言，一般会删除已经被消费的消息，而Kafka集群会保留所有的消息，无论其被消费与否。当然，因为磁盘限制，不可能永久保留所有数据（实际上也没必要），因此Kafka提供两种策略删除旧数据。一是基于时间，二是基于Partition文件大小。例如可以通过配置$KAFKA_HOME/config/server.properties，让Kafka删除一周前的数据，也可在Partition文件超过1GB时删除旧数据，配置如下所示。</p>
+<h2 id="Consumer-Group"><a href="#Consumer-Group" class="headerlink" title="Consumer Group"></a>Consumer Group</h2><p>使用Consumer high level API时，同一Topic的一条消息只能被同一个Consumer Group内的一个Consumer消费，但多个Consumer Group可同时消费这一消息。</p>
+<h2 id="Push-vs-Pull"><a href="#Push-vs-Pull" class="headerlink" title="Push vs. Pull"></a>Push vs. Pull</h2><p>作为一个消息系统，Kafka遵循了传统的方式，选择由Producer向broker push消息并由Consumer从broker pull消息。</p>
+<p>push模式很难适应消费速率不同的消费者，因为消息发送速率是由broker决定的。push模式的目标是尽可能以最快速度传递消息，但是这样很容易造成Consumer来不及处理消息，典型的表现就是拒绝服务以及网络拥塞。而pull模式则可以根据Consumer的消费能力以适当的速率消费消息。</p>
+<h2 id="Kafka-delivery-guarantee"><a href="#Kafka-delivery-guarantee" class="headerlink" title="Kafka delivery guarantee"></a>Kafka delivery guarantee</h2><ul>
+<li>At most once 消息可能会丢，但绝不会重复传输</li>
+<li>At least one 消息绝不会丢，但可能会重复传输</li>
+<li>Exactly once 每条消息肯定会被传输一次且仅传输一次，很多时候这是用户所想要的。</li>
+</ul>
+</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Kafka/">Kafka</a><span class="tag-list-count">2</span></li></ul></div></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/08/06/Swift/URLSession/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/05/03/Kafka/kafka01/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/geyingauv" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/geyingauv" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 Virle's blog</p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>
