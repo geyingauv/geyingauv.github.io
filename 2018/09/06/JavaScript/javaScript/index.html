@@ -1,0 +1,94 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="virle's blog, virle, geying, geyingauv"><title>JavaScript 再入门 - Virle's blog</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/geyingauv"><span>Github</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="/post-bg.jpg"><div class="post-title"><h1 class="title">JavaScript 再入门</h1><ul class="meta"><li><i class="icon icon-author"></i>Virle</li><li><i class="icon icon-clock"></i>11 Minutes</li><li><i class="icon icon-calendar"></i>September 6, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><p>虽然用项目中使用 jquery 已经写锅很多项目了，但是对于原生 js 很少了解过，趁此机会再了解相关的知识，为之后做铺垫。本文记录平时没接触过，但是可能会在未来开发中有帮助的内容。</p>
+<a id="more"></a>
+<h2 id="javaScript-判断类型"><a href="#javaScript-判断类型" class="headerlink" title="javaScript 判断类型"></a>javaScript 判断类型</h2><ol>
+<li>使用 <code>type of</code></li>
+<li>使用构造函数判断<blockquote>
+<p>平时使用较多的是 <code>type of</code> 这里，这里记录一下如何使用构造函数判断类型</p>
+</blockquote>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">param</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(param.constructor == <span class="built_in">String</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"params is string"</span>)</span><br><span class="line">  &#125;<span class="keyword">else</span> <span class="keyword">if</span>(param.constructor == <span class="built_in">Array</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"params is array"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>param</th>
+<th>Type of</th>
+<th>Constructor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>{a:’1’}</td>
+<td>object</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>[1,2,3,4]</td>
+<td>object</td>
+<td>Array</td>
+</tr>
+<tr>
+<td>function(){}</td>
+<td>function</td>
+<td>Function</td>
+</tr>
+<tr>
+<td>“string”</td>
+<td>string</td>
+<td>String</td>
+</tr>
+<tr>
+<td>55</td>
+<td>number</td>
+<td>Number</td>
+</tr>
+<tr>
+<td>true</td>
+<td>boolean</td>
+<td>Boolean</td>
+</tr>
+<tr>
+<td>new User()</td>
+<td>object</td>
+<td>User</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>使用 <code>type of</code> 判断类型时，json对象、数组、自定义对象返回的都是 <code>object</code>；使用构造方法来判断类型可以更加精确</p>
+</blockquote>
+<h2 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h2><p>面向对象三大基本特征：封装、继承、多态</p>
+<p>封装：可以通过闭包来实现，</p>
+<p>多态：Javascript 中不像 Java 可以声明多个名称相同参数不同的方法，但是可以在方法内判断参数的个数和类型来实现多态</p>
+<p>继承：实现方式看到了好多种，如下的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">name, password</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">    <span class="keyword">this</span>.password = password</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// var u = new User('virle')</span></span><br><span class="line">  <span class="comment">// console.log(u.getName())  // u.getName is not a function</span></span><br><span class="line"></span><br><span class="line">  User.prototype = <span class="keyword">new</span> Person()</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> user = <span class="keyword">new</span> User(<span class="string">"virle"</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(user.getName()) <span class="comment">// virle</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>每次创建 <code>User</code> 对象的时候都会创建 <code>Person</code> 对象，包含了 <code>Person</code> 对象中的方法，所以创建的 <code>User</code> 对象可以使用 <code>Person</code> 中的 <code>getName()</code></p>
+</blockquote>
+<p>静态方法声明</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name</span><br><span class="line">    <span class="keyword">this</span>.age = age</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">this</span>.getAge = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.age</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">User.cloneUser = <span class="function"><span class="keyword">function</span>(<span class="params">user</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> User(user.getName(),user.getAge())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> user = <span class="keyword">new</span> User(<span class="string">'virle'</span>, <span class="number">20</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> clone = User.cloneUser(user)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(clone.getName())</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>个人感觉 Javascript 面向对象编程写代码很不习惯，用着也很奇怪，可能是习惯了 Java 的一套理念。</p>
+<p>其他参考链接：</p>
+<p><a href="https://www.cnblogs.com/Leo_wl/p/5734794.html" target="_blank" rel="noopener">JS面向对象编程之：封装、继承、多态</a></p>
+<p><a href="https://www.cnblogs.com/z-w-r/p/6739363.html" target="_blank" rel="noopener">基于类（Java）和基于原理（JavaScript）的对象系统的比较</a></p>
+<p><a href="http://es6.ruanyifeng.com/#docs/class" target="_blank" rel="noopener">ECMAScript 6 入门 - Class 的基本语法</a></p>
+<p>ES6 中 Class 的继承比 ES5 的通过修改原型链实现继承，要清晰和方便很多。</p>
+</blockquote>
+<h2 id="命名空间"><a href="#命名空间" class="headerlink" title="命名空间"></a>命名空间</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> VIR = &#123;&#125;</span><br><span class="line"></span><br><span class="line">VIR.util = &#123;&#125;</span><br><span class="line"></span><br><span class="line">VIR.util.Event = &#123;</span><br><span class="line">    addEventListener: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;...&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>JavaScript 里并不存在命名空间的概念，但是每个对象都有自己的属性，属性又可以包含对象，所以可以创造出和其他语言类似的命名空间类似的东西</p>
+</blockquote>
+<h2 id="压缩代码"><a href="#压缩代码" class="headerlink" title="压缩代码"></a>压缩代码</h2><ol>
+<li><p>JSMin</p>
+<p>去除所有的非必要的字符，只留下实现功能所必需的代码。JSMin 是通过去掉多余空白字符（包括制表符和换行符）和注释达到压缩的目的</p>
+</li>
+<li><p>Packer</p>
+<p>去除空白和注释，修改变量名，而且最小化代码中的所有单词长度。生成的代码回多处几百字节，用于自解压，对于大文件来说比较合适。</p>
+</li>
+</ol>
+<h2 id="DOM"><a href="#DOM" class="headerlink" title="DOM"></a>DOM</h2><p>DOM 方面的内容接触的比较多，所以只是简单浏览一遍，具体的内容还是推荐<a href="http://www.w3school.com.cn/jsref/dom_obj_document.asp" target="_blank" rel="noopener">DOM参考手册</a></p>
+</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/">JavaScript</a><span class="tag-list-count">1</span></li></ul></div></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/08/30/book/2018-09/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/geyingauv" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/geyingauv" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 Virle's blog</p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>
