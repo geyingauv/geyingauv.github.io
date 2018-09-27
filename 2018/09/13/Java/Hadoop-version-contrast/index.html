@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"><meta name="format-detection" content="telephone=no"><meta name="format-detection" content="email=no"><meta name="description"><meta name="keywords" content="virle's blog, virle, geying, geyingauv"><title>Hadoop 发行版本对比 - Virle's blog</title><link rel="stylesheet" href="/css/main_style.min.css"><link rel="icon" href="/favicon.ico"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?c3d02a6e0e241c65a29e535825d0d1db";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></head><body><input id="navi" type="checkbox"><ul class="main-navication"><li><a href="/"><span>Home</span></a></li><li><a href="https://github.com/geyingauv"><span>Github</span></a></li></ul><div class="wrapper" id="wrap"><div class="post-header"><label class="navi-button light" for="navi">MENU</label><img class="background" src="/post-bg.jpg"><div class="post-title"><h1 class="title">Hadoop 发行版本对比</h1><ul class="meta"><li><i class="icon icon-author"></i>Virle</li><li><i class="icon icon-clock"></i>1 Minutes</li><li><i class="icon icon-calendar"></i>September 13, 2018</li></ul></div></div><div class="article-content" style="max-width:800px"><h2 id="Cloudera发行版（CDH）"><a href="#Cloudera发行版（CDH）" class="headerlink" title="Cloudera发行版（CDH）"></a>Cloudera发行版（CDH）</h2><p>提供商业服务</p>
+<p>未全部开源</p>
+<p>版本划分：5.x 6.x  </p>
+<p>文档：文档分类多 <a href="https://www.cloudera.com/documentation/enterprise/6/6.0.html" target="_blank" rel="noopener">CDH 6 文档</a></p>
+<p>运维：Cloudera Manager</p>
+<p>代码包依赖：编写代码要依赖cdh的版本，否则运行不成功</p>
+<p>二次开发：不支持</p>
+<blockquote>
+<p><strong>Cloudera：</strong>最成型的发行版本，拥有最多的部署案例。提供强大的部署、管理和监控工具。Cloudera开发并贡献了可实时处理大数据的Impala项目。</p>
+</blockquote>
+<h2 id="Hortonworks发行版（HDP）"><a href="#Hortonworks发行版（HDP）" class="headerlink" title="Hortonworks发行版（HDP）"></a>Hortonworks发行版（HDP）</h2><p>提供商业服务</p>
+<p>完全开源 Apache 顶级项目</p>
+<p>版本划分：版本比较新，基本与社区版同步</p>
+<p>文档：文档清晰<a href="https://docs.hortonworks.com/" target="_blank" rel="noopener">Hortonworks文档</a></p>
+<p>运维：Ambari</p>
+<p>代码包依赖：编写代码直接依赖hadoop版本</p>
+<p>二次开发：支持</p>
+<blockquote>
+<p><strong>Hortonworks：</strong>不拥有任何私有（非开源）修改地使用了100%开源Apache Hadoop的唯一提供商。Hortonworks是第一家使用了Apache HCatalog的元数据服务特性的提供商。并且，它们的Stinger开创性地极大地优化了Hive项目。Hortonworks为入门提供了一个非常好的，易于使用的沙盒。Hortonworks开发了很多增强特性并提交至核心主干，这使得Apache Hadoop能够在包括Windows Server和Windows Azure在内的Microsft Windows平台上本地运行。</p>
+</blockquote>
+<p><em>两者都是基于Apache Hadoop社区版衍生出来的</em></p>
+<h2 id="Apache-Hadoop-社区版"><a href="#Apache-Hadoop-社区版" class="headerlink" title="Apache Hadoop 社区版"></a>Apache Hadoop 社区版</h2><p>完全开源免费</p>
+<p>社区活跃</p>
+<p>版本划分：复杂，处理组件版本兼容性</p>
+<p>文档：详细</p>
+<p>部署：复杂，多节点需要分别部署分发配置文件到每一个节点</p>
+<p>运维：对集群的监控，运维，需要安装第三方的其他软件，如ganglia，nagois等，运维难度较大</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/kdy11/p/9315706.html" target="_blank" rel="noopener">大数据平台比较-CDH，HDP</a></p>
+</div><div class="article-meta" style="max-width:800px"><div class="tags"><i class="icon icon-tag"></i><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/hadoop/">hadoop</a><span class="tag-list-count">1</span></li></ul></div></div><ul class="navication"><li class="home"><a href="/"><i class="icon icon-home"></i></a></li><li><a href="/2018/09/20/Java/java-nio/"><i class="icon icon-arror-left"></i></a></li><li><a href="/2018/09/12/Java/java-regex/"><i class="icon icon-arror-right"></i></a></li></ul><div class="page-footer"><div class="top"><ul class="social"><li><a href="https://github.com/geyingauv" title="Github" target="_blank"><i class="icon icon-github"></i></a></li><li><a href="https://weibo.com/geyingauv" title="Weibo" target="_blank"><i class="icon icon-weibo"></i></a></li></ul></div><div class="bottom"><p class="copyright">© 2018 Virle's blog</p></div></div></div><script>var wrap = document.getElementById('wrap');
+window.onload = function () {
+  wrap.className += ' done';
+}</script></body></html>
