@@ -222,10 +222,10 @@
     </entry>
     
     <entry>
-      <title>数据分析中对缺失数据的处理方式</title>
-      <link href="/2018/04/12/R/R-deilmethods/"/>
-      <url>/2018/04/12/R/R-deilmethods/</url>
-      <content type="html"><![CDATA[<p>数据处理前对缺失数据的几种处理方式<br><a id="more"></a></p><ul><li><p>当缺失数据较少时直接删除相应样本</p><p>  删除缺失数据样本，其前提是缺失数据的比例较少，而且缺失数据是随机出现的，这样删除缺失数据后对分析结果影响不大。如果缺失数据大于30%应当删除该特征</p></li><li><p>用上下数据进行填充</p><p>  data.fillna(method=’pad’) or (method=’bfill’)</p></li><li><p>对缺失数据进行插补</p><p>  用均值、中位数、众数、随机值等统计值填充，其优点在于不会减少样本信息，处理简单。但是缺点在于当缺失数据不是随机出现时会产成偏误。</p><p>  多重插补法（Multiple imputation）：多重插补是通过变量间关系来预测缺失数据，利用蒙特卡罗方法生成多个完整数据集，再对这些数据集分别进行分析，最后对这些分析结果进行汇总处理。可以用mice包实现。</p></li><li><p>使用对缺失数据不敏感的分析方法，例如决策树</p></li></ul>]]></content>
+      <title>R 语言服务器环境部署</title>
+      <link href="/2018/04/12/R/R-environment-setup/"/>
+      <url>/2018/04/12/R/R-environment-setup/</url>
+      <content type="html"><![CDATA[<p>配置环境变量</p><p>R_HOME = R语言的安装路径</p><p>path 在末尾追加“;”号  %R_HOME%/bin</p><h1 id="安装所需的包"><a href="#安装所需的包" class="headerlink" title="安装所需的包"></a>安装所需的包</h1><p>其中用来连接的包叫Rserve</p><p>命令行输入R进入</p><p>输入</p><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">install.packages(<span class="string">'Rserve'</span>)          <span class="comment">#java同个Rserve服务连接到R</span></span><br><span class="line"></span><br><span class="line">install.packages(<span class="string">'RMySQL'</span>)       <span class="comment">#R语言连接mysql</span></span><br><span class="line"></span><br><span class="line">install.packages(<span class="string">'rjson'</span>)             <span class="comment">#将数据转换为json格式</span></span><br><span class="line"></span><br><span class="line">install.packages(<span class="string">"forecast"</span>)      <span class="comment">#R语言模型预测的包</span></span><br></pre></td></tr></table></figure><h1 id="启动远程访问服务"><a href="#启动远程访问服务" class="headerlink" title="启动远程访问服务"></a>启动远程访问服务</h1><p>进入R的library目录</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd library/Rserve/libs/x64</span><br><span class="line">R CMD Rserve --RS-enable-remote  #开启远程访问</span><br></pre></td></tr></table></figure><h1 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h1><ul><li>在R中加载类并使用Rserve()方法启动以及在Rserve目录使用R CMD Rserve 均为本地访问，远程访问需要加后面的参数</li></ul>]]></content>
       
       
         <tags>
@@ -237,10 +237,10 @@
     </entry>
     
     <entry>
-      <title>R 语言服务器环境部署</title>
-      <link href="/2018/04/12/R/R-environment-setup/"/>
-      <url>/2018/04/12/R/R-environment-setup/</url>
-      <content type="html"><![CDATA[<p>配置环境变量</p><p>R_HOME = R语言的安装路径</p><p>path 在末尾追加“;”号  %R_HOME%/bin</p><h1 id="安装所需的包"><a href="#安装所需的包" class="headerlink" title="安装所需的包"></a>安装所需的包</h1><p>其中用来连接的包叫Rserve</p><p>命令行输入R进入</p><p>输入</p><figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">install.packages(<span class="string">'Rserve'</span>)          <span class="comment">#java同个Rserve服务连接到R</span></span><br><span class="line"></span><br><span class="line">install.packages(<span class="string">'RMySQL'</span>)       <span class="comment">#R语言连接mysql</span></span><br><span class="line"></span><br><span class="line">install.packages(<span class="string">'rjson'</span>)             <span class="comment">#将数据转换为json格式</span></span><br><span class="line"></span><br><span class="line">install.packages(<span class="string">"forecast"</span>)      <span class="comment">#R语言模型预测的包</span></span><br></pre></td></tr></table></figure><h1 id="启动远程访问服务"><a href="#启动远程访问服务" class="headerlink" title="启动远程访问服务"></a>启动远程访问服务</h1><p>进入R的library目录</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd library/Rserve/libs/x64</span><br><span class="line">R CMD Rserve --RS-enable-remote  #开启远程访问</span><br></pre></td></tr></table></figure><h1 id="Attention"><a href="#Attention" class="headerlink" title="Attention"></a>Attention</h1><ul><li>在R中加载类并使用Rserve()方法启动以及在Rserve目录使用R CMD Rserve 均为本地访问，远程访问需要加后面的参数</li></ul>]]></content>
+      <title>数据分析中对缺失数据的处理方式</title>
+      <link href="/2018/04/12/R/R-deilmethods/"/>
+      <url>/2018/04/12/R/R-deilmethods/</url>
+      <content type="html"><![CDATA[<p>数据处理前对缺失数据的几种处理方式<br><a id="more"></a></p><ul><li><p>当缺失数据较少时直接删除相应样本</p><p>  删除缺失数据样本，其前提是缺失数据的比例较少，而且缺失数据是随机出现的，这样删除缺失数据后对分析结果影响不大。如果缺失数据大于30%应当删除该特征</p></li><li><p>用上下数据进行填充</p><p>  data.fillna(method=’pad’) or (method=’bfill’)</p></li><li><p>对缺失数据进行插补</p><p>  用均值、中位数、众数、随机值等统计值填充，其优点在于不会减少样本信息，处理简单。但是缺点在于当缺失数据不是随机出现时会产成偏误。</p><p>  多重插补法（Multiple imputation）：多重插补是通过变量间关系来预测缺失数据，利用蒙特卡罗方法生成多个完整数据集，再对这些数据集分别进行分析，最后对这些分析结果进行汇总处理。可以用mice包实现。</p></li><li><p>使用对缺失数据不敏感的分析方法，例如决策树</p></li></ul>]]></content>
       
       
         <tags>
